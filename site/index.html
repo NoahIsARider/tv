@@ -105,6 +105,16 @@ body.open #art{opacity:0;transition:opacity .4s ease,visibility 0s .4s}
   50%{transform:translate(-50%,calc(-50% - 6px)) scale(1.006)}
 }
 
+#sign{
+  position:absolute;right:6%;top:9%;z-index:4;
+  font-family:Salt,cursive;
+  font-size:clamp(12px,1.6vw,22px);line-height:1;
+  color:#fff2f8;letter-spacing:.02em;
+  text-shadow:0 0 10px rgba(255,175,210,.85),0 0 26px rgba(255,140,190,.45);
+  transform:rotate(-3.5deg);transform-origin:right center;
+  pointer-events:none;
+}
+
 #mapbtn{
   position:absolute;right:3%;bottom:3.5%;z-index:4;
   width:19%;padding:0;border:0;background:none;cursor:pointer;
@@ -199,6 +209,7 @@ body.on #tvwrap #hint{opacity:0}
 
       <div id="art">
         <img id="rabbit" src="img/rabbit.png" alt="a rabbit in goggles riding a motorcycle">
+        <span id="sign">noahisarider</span>
         <button id="mapbtn" type="button" aria-label="open the map">
           <img src="img/obj-map.png" alt="map">
         </button>
