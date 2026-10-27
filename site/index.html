@@ -167,7 +167,7 @@ body.open #book{opacity:1;visibility:visible;pointer-events:auto;transition-dela
 .b6{left:72.5%;top:31%;--w:17%;--r:-5deg}
 
 #back{
-  position:fixed;right:3.2vw;top:3.2vh;z-index:9;
+  position:absolute;right:4.5%;top:8%;z-index:9;
   background:none;border:0;cursor:pointer;
   font-family:Salt,cursive;font-size:clamp(11px,1.15vw,15px);
   color:rgba(255,228,240,.85);letter-spacing:.03em;
@@ -229,6 +229,7 @@ body.on #tvwrap #hint{opacity:0}
           <img src="img/obj-laptop.png" alt=""><span>codeberg</span></a>
         <a class="item b6" href="https://tangled.org/noahisarider.tngl.sh" target="_blank" rel="noopener">
           <img src="img/rabbit-dog.png" alt=""><span>tangled</span></a>
+        <button id="back" type="button">close</button>
       </div>
 
       <div id="sheen"></div>
@@ -237,8 +238,6 @@ body.on #tvwrap #hint{opacity:0}
     <img id="tv" src="img/tv-window.png" alt="a silver television set">
   </div>
 </main>
-
-<button id="back" type="button">close</button>
 
 <noscript><style>
 body{overflow:auto}#art{opacity:1;visibility:visible;position:static;height:auto}
