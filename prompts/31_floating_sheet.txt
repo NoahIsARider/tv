@@ -1,0 +1,14 @@
+Use case: floating decoration sprites for a dreamy black and white website
+Asset type: sprite sheet, square, 3 by 3 grid of separate small objects
+
+Primary request: nine tiny black ink drawings of small everyday and dreamy objects, all in the same hand drawn style, laid out on a strict 3 by 3 grid with equal cells and generous even space around every object.
+
+Subject, one per cell, in this order left to right, top to bottom: a five pointed star, a crescent moon, an audio cassette tape, a steaming teacup, a folded paper envelope, an old key, a single tulip flower, a paper aeroplane, a tiny cloud with three raindrops.
+
+Style: black ink line art with white paper showing through, confident slightly uneven outlines, minimal hatching only, no grey wash, no colour, cute and gentle, like a 1970s children's book endpaper, absolutely no anime or manga styling.
+
+Composition: nine equal cells on a 3 by 3 grid, each object centred in its own cell and filling about 60 percent of the cell, no grid lines drawn, no object touching a cell border.
+
+Constraints: the background must be ONE flat pure magenta #FF00FF everywhere, edge to edge, no shadows, no paper texture, ready to be keyed out. No text, no letters, no numerals, no logo, no watermark, no colour fills, no gradients, no 3D render, no photograph.
+
+Generate the image now with your image generation tool, then copy the final PNG to `site/img/src/floating-sheet.png`, print the file size and pixel dimensions, and stop. Do not write any code, do not edit any other file.

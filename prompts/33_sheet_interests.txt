@@ -1,0 +1,23 @@
+Use case: floating decoration sprites for a dreamy black and white website
+Asset type: sprite sheet, square, 3 by 3 grid of separate objects
+
+Primary request: nine intricate black ink drawings of objects that belong to one person's life as a researcher and maker, drawn like antique engraved illustration plates, laid out on a strict 3 by 3 grid with equal cells and generous even space around every object. Each one must be a rich, detailed little picture on its own, not a simple outline icon.
+
+Subject, one per cell, left to right, top to bottom:
+1. a folded newspaper, pages slightly open, dense columns of abstract text lines and one small photo block, a paper band around it
+2. a round brass magnifying glass lying across two lines of printed text, its lens showing the lines enlarged and slightly distorted
+3. a small brass balance scale with two hanging pans and a central pointer, one pan holding a folded note
+4. a constellation diagram, eleven small stars joined by fine dotted lines, with tiny tick marks around it like an old star chart
+5. an audio cassette tape, two spoked reels, a printed label with ruled lines for writing, four corner screws, a little spool of tape visible in one corner
+6. a strip of 35mm film with four frames, sprocket holes along both edges, the frames containing tiny abstract scenes
+7. a folded paper map seen at an angle, a dotted walking route across it, small contour lines, a compass arrow in one corner
+8. an open book with dense abstract lines of text on both pages and a ribbon bookmark hanging out
+9. a wireframe globe of thin latitude and longitude lines on a small brass stand, a few dots marking places on it
+
+Style: black ink on white paper, fine engraving and etching technique, dense cross hatching and stippling, thin confident outlines, high detail, quiet and a little nostalgic, like a 19th century scientific plate. Absolutely no anime or manga styling, no flat icon look, no simple outline shapes.
+
+Composition: nine equal cells on a 3 by 3 grid, each object centred in its own cell and filling about 65 percent of the cell, no grid lines drawn, nothing touching a cell border, nothing overlapping between cells.
+
+Constraints: the background must be ONE flat pure magenta #FF00FF everywhere, edge to edge, no ground shadows, no paper texture, ready to be keyed out. Any printed text must be abstract lines or illegible marks, never real words or numerals. No colours, no gradients, no 3D render, no photograph.
+
+Generate the image now with your image generation tool, then copy the final PNG to `site/img/src/floating-sheet2.png`, print the file size and pixel dimensions, and stop. Do not write any code, do not edit any other file.

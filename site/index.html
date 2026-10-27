@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>noahisarider</title>
+<meta name="description" content="a rabbit riding a motorcycle through the night.">
+<link rel="icon" type="image/png" sizes="256x256" href="img/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="stylesheet" href="tv-geo.css?v=5">
+<style>
+@font-face{font-family:Salt;src:url(fonts/RockSalt.woff2) format("woff2");font-display:swap}
+
+:root{
+  --ease:cubic-bezier(.22,.9,.24,1);
+  --ink:#fff1f7;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;background:#0d0810;color:var(--ink);
+  font-family:Salt,cursive;overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ---------- world ---------- */
+#bg{
+  position:fixed;inset:-3vmax;width:calc(100% + 6vmax);height:calc(100% + 6vmax);
+  object-fit:cover;object-position:50% 54%;
+  filter:blur(1.4px) brightness(.96) saturate(1.02);
+  transform:scale(1.02);
+  transition:filter 1.4s var(--ease),transform 1.6s var(--ease);
+}
+body.on #bg{filter:blur(10px) brightness(.55) saturate(.9);transform:scale(1.06)}
+
+#grain{
+  position:fixed;inset:0;pointer-events:none;z-index:2;
+  background:url(img/grain.png) repeat;background-size:190px 190px;
+  opacity:.5;mix-blend-mode:overlay;
+}
+
+/* ---------- television ---------- */
+#stage{position:fixed;inset:0;z-index:3;display:grid;place-items:center;padding:2vmin}
+
+#tvwrap{
+  position:relative;
+  width:min(52vw,66vh,620px);
+  transform:translateY(-1.5vh);
+  transition:width 1.15s var(--ease),transform 1.15s var(--ease),filter 1.15s var(--ease);
+  filter:drop-shadow(0 26px 48px rgba(48,10,40,.6)) drop-shadow(0 0 46px rgba(255,150,190,.13));
+  animation:bob 9s ease-in-out infinite;
+}
+body.on #tvwrap{
+  width:min(94vw,116vh,1240px);
+  transform:translateY(-2vh);animation:none;
+  filter:drop-shadow(0 30px 80px rgba(20,0,20,.7)) drop-shadow(0 0 90px rgba(255,150,190,.15));
+}
+@keyframes bob{
+  0%,100%{transform:translateY(-1.5vh)}
+  50%{transform:translateY(calc(-1.5vh - 8px))}
+}
+
+#tv{position:relative;z-index:2;display:block;width:100%;height:auto;
+  pointer-events:none;user-select:none;-webkit-user-drag:none}
+
+#glass{
+  position:absolute;z-index:1;
+  left:var(--gl-left);top:var(--gl-top);
+  width:var(--gl-w);height:var(--gl-h);
+  overflow:hidden;background:#070c10;
+}
+
+#static{
+  position:absolute;inset:-2.5% -3%;
+  background:url(img/static.gif) center/cover no-repeat;
+  transition:opacity .55s linear,filter .55s linear;
+  opacity:1;filter:brightness(1.22) contrast(1.06);
+}
+body.on #static{opacity:0;filter:blur(3px) brightness(2)}
+
+#flash{position:absolute;inset:0;background:#fff;opacity:0;
+  mix-blend-mode:screen;pointer-events:none}
+body.on #flash{animation:poweron .45s ease-out 1}
+@keyframes poweron{0%{opacity:0}22%{opacity:.5}100%{opacity:0}}
+
+/* ---------- the rabbit ---------- */
+#art{
+  position:absolute;inset:0;
+  opacity:0;visibility:hidden;
+  transition:opacity .7s ease .3s,visibility 0s .3s;
+}
+body.on #art{opacity:1;visibility:visible}
+body.open #art{opacity:0;transition:opacity .4s ease,visibility 0s .4s}
+
+#rabbit{
+  position:absolute;left:48.2%;top:47.5%;
+  transform:translate(-50%,-50%);
+  height:76%;width:auto;
+  filter:drop-shadow(0 0 12px rgba(255,180,210,.4)) drop-shadow(0 0 34px rgba(255,140,190,.18));
+  animation:breathe 7s ease-in-out infinite;
+}
+@keyframes breathe{
+  0%,100%{transform:translate(-50%,-50%) scale(1)}
+  50%{transform:translate(-50%,calc(-50% - 6px)) scale(1.006)}
+}
+
+#mapbtn{
+  position:absolute;right:3%;bottom:3.5%;z-index:4;
+  width:19%;padding:0;border:0;background:none;cursor:pointer;
+  opacity:1;
+  filter:brightness(1.18) drop-shadow(0 0 10px rgba(255,185,215,.5));
+  transition:transform .35s var(--ease),opacity .35s ease;
+}
+#mapbtn img{display:block;width:100%;height:auto}
+#mapbtn:hover{transform:scale(1.07) rotate(-2deg);opacity:1}
+
+/* ---------- the notebook ---------- */
+#book{
+  position:absolute;inset:0;z-index:5;
+  /* the book body is what should read as centred; the ribbon hanging under it
+     does not count */
+  transform:translateY(6.2%);
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .5s ease,visibility 0s .5s;
+}
+body.open #book{opacity:1;visibility:visible;pointer-events:auto;transition-delay:0s}
+
+#book .spread{
+  position:absolute;left:50%;top:50%;
+  transform:translate(-50%,-50%);
+  /* stretched to the screen, not letterboxed inside it */
+  width:101%;height:101%;object-fit:fill;
+}
+
+.item{
+  position:absolute;display:block;text-decoration:none;
+  text-align:center;color:var(--ink);width:var(--w,15%);
+  transform:rotate(var(--r,0deg));transform-origin:50% 50%;
+  transition:transform .35s var(--ease),filter .3s ease;
+  filter:drop-shadow(0 0 8px rgba(255,180,212,.35));
+}
+.item img{display:block;width:100%;height:auto;margin:0 auto}
+.item span{
+  display:block;margin-top:.3em;
+  font-size:clamp(8px,.82vw,12px);line-height:1.25;
+  text-shadow:0 0 12px rgba(255,150,195,.8);
+}
+.item:hover{transform:rotate(var(--r,0deg)) translateY(-4px) scale(1.07);
+  filter:drop-shadow(0 0 16px rgba(255,195,225,.75))}
+
+.b1{left:10%;top:11%;--w:16%;--r:-7deg}
+.b2{left:30%;top:31%;--w:14%;--r:-4deg}
+.b3{left:12%;top:44%;--w:16%;--r:5deg}
+.b4{left:58%;top:12%;--w:16%;--r:6deg}
+.b5{left:57%;top:50%;--w:14.5%;--r:3deg}
+.b6{left:72.5%;top:31%;--w:17%;--r:-5deg}
+
+#back{
+  position:fixed;right:3.2vw;top:3.2vh;z-index:9;
+  background:none;border:0;cursor:pointer;
+  font-family:Salt,cursive;font-size:clamp(11px,1.15vw,15px);
+  color:rgba(255,228,240,.85);letter-spacing:.03em;
+  text-shadow:0 0 14px rgba(255,140,185,.7);
+  opacity:0;pointer-events:none;transition:opacity .45s ease,color .3s;
+}
+body.open #back{opacity:1;pointer-events:auto}
+#back:hover{color:#fff}
+
+#hint{
+  position:absolute;left:50%;top:calc(100% + 1.3em);transform:translateX(-50%);
+  font-size:clamp(13px,1.45vw,19px);white-space:nowrap;
+  color:rgba(255,232,242,.92);
+  text-shadow:0 0 18px rgba(255,150,190,.7);
+  animation:pulse 4.2s ease-in-out infinite;
+  pointer-events:none;transition:opacity .5s ease;
+}
+@keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+body.on #tvwrap #hint{opacity:0}
+
+#sheen{position:absolute;inset:0;z-index:6;pointer-events:none;
+  background:url(img/glass.png) center/100% 100% no-repeat}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
+</style>
+</head>
+<body>
+
+<img id="bg" src="img/bg.jpg" alt="">
+<div id="grain"></div>
+
+<main id="stage">
+  <div id="tvwrap" role="button" tabindex="0" aria-label="turn on the television">
+    <p id="hint">click the screen</p>
+
+    <div id="glass">
+      <div id="static"></div>
+      <div id="flash"></div>
+
+      <div id="art">
+        <img id="rabbit" src="img/rabbit.png" alt="a rabbit in goggles riding a motorcycle">
+        <button id="mapbtn" type="button" aria-label="open the map">
+          <img src="img/obj-map.png" alt="map">
+        </button>
+      </div>
+
+      <div id="book">
+        <img class="spread" src="img/spread.png" alt="">
+        <a class="item b1" href="https://noahsblog.pages.dev/" target="_blank" rel="noopener">
+          <img src="img/obj-book.png" alt=""><span>blog</span></a>
+        <a class="item b2" href="https://github.com/NoahIsARider" target="_blank" rel="noopener">
+          <img src="img/obj-backpack.png" alt=""><span>github</span></a>
+        <a class="item b3" href="https://letterboxd.com/NoahIsARider/" target="_blank" rel="noopener">
+          <img src="img/obj-cassettes.png" alt=""><span>letterboxd</span></a>
+        <a class="item b4" href="https://record.club/NoahIsARider" target="_blank" rel="noopener">
+          <img src="img/obj-walkman.png" alt=""><span>record club</span></a>
+        <a class="item b5" href="https://codeberg.org/NoahIsARider" target="_blank" rel="noopener">
+          <img src="img/obj-laptop.png" alt=""><span>codeberg</span></a>
+        <a class="item b6" href="https://tangled.org/noahisarider.tngl.sh" target="_blank" rel="noopener">
+          <img src="img/rabbit-dog.png" alt=""><span>tangled</span></a>
+      </div>
+
+      <div id="sheen"></div>
+    </div>
+
+    <img id="tv" src="img/tv-window.png" alt="a silver television set">
+  </div>
+</main>
+
+<button id="back" type="button">close</button>
+
+<noscript><style>
+body{overflow:auto}#art{opacity:1;visibility:visible;position:static;height:auto}
+#static{display:none}#tvwrap{width:80vw}
+</style></noscript>
+
+<script>
+(function(){
+  var body=document.body,
+      wrap=document.getElementById('tvwrap'),
+      map=document.getElementById('mapbtn'),
+      back=document.getElementById('back');
+
+  function on(){ body.classList.add('on'); }
+  function off(){ body.classList.remove('open'); body.classList.remove('on'); }
+  function openBook(){ body.classList.add('open'); }
+  function closeBook(){ body.classList.remove('open'); }
+
+  wrap.addEventListener('click', function(e){
+    if (e.target.closest('#mapbtn')) { e.preventDefault(); e.stopPropagation(); openBook(); return; }
+    if (e.target.closest('#book')) { return; }
+    if (!body.classList.contains('on')) { e.preventDefault(); on(); return; }
+    if (body.classList.contains('open')) closeBook();
+  });
+  wrap.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); on(); }
+  });
+  back.addEventListener('click', function(e){
+    e.stopPropagation();
+    if (body.classList.contains('open')) closeBook(); else off();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key !== 'Escape') return;
+    if (body.classList.contains('open')) closeBook(); else off();
+  });
+  // a click anywhere outside the set turns it off in one step, however deep
+  // the visitor is inside the notebook
+  document.addEventListener('click', function(e){
+    if (!body.classList.contains('on')) return;
+    if (e.target.closest('#tvwrap') || e.target.closest('#back')) return;
+    off();
+  });
+})();
+</script>
+</body>
+</html>

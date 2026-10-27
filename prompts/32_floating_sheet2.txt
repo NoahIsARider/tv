@@ -1,0 +1,23 @@
+Use case: floating decoration sprites for a dreamy black and white website
+Asset type: sprite sheet, square, 3 by 3 grid of separate objects
+
+Primary request: nine intricate black ink drawings of small objects, drawn like antique engraved illustration plates, laid out on a strict 3 by 3 grid with equal cells and generous even space around every object. These float around a character, so each one must be a rich, detailed little picture on its own, not a simple outline icon.
+
+Subject, one per cell, left to right, top to bottom:
+1. an ornate baroque key with a pierced scrollwork bow and a bit shaped like a tiny heart
+2. a moth seen from above with patterned wings, antennae and a furry body
+3. an audio cassette tape with two spoked reels, a printed label with lines for writing and four corner screws
+4. a porcelain teacup on a saucer with a small floral pattern, a chip on the rim and a curl of steam
+5. a small parcel wrapped in paper, tied with string, a wax seal and a paper tag on a thread
+6. a crescent moon covered in craters and small seas
+7. a compass rose with sixteen fine points, concentric rings and a needle
+8. a rose stem with three leaves, thorns along the stem and one half open bloom
+9. a pocket watch with a chain, an engraved case and roman numerals on the face
+
+Style: black ink on white paper, fine engraving and etching technique, dense cross hatching and stippling for shading, thin confident outlines, high detail, cute and gentle in feeling, like a 19th century naturalist plate mixed with a children's book endpaper. Absolutely no anime or manga styling, no flat icon look, no simple outline shapes.
+
+Composition: nine equal cells on a 3 by 3 grid, each object centred in its own cell and filling about 65 percent of the cell, no grid lines drawn, nothing touching a cell border, nothing overlapping between cells.
+
+Constraints: the background must be ONE flat pure magenta #FF00FF everywhere, edge to edge, no shadows, no paper texture, ready to be keyed out. No text anywhere except the tiny illegible marks engraved on the watch and the cassette label, which must be abstract lines and not real words. No colours, no gradients, no 3D render, no photograph.
+
+Generate the image now with your image generation tool, then copy the final PNG to `site/img/src/floating-sheet2.png`, print the file size and pixel dimensions, and stop. Do not write any code, do not edit any other file.

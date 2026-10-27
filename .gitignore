@@ -1,0 +1,5 @@
+check-*.png
+refs/
+refs-*.log
+site/_*.html
+site/img/src/_*

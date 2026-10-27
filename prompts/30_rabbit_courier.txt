@@ -1,0 +1,14 @@
+Use case: personal avatar artwork for a dreamy black and white website
+Asset type: single character cutout, square
+
+Primary request: one cute rabbit courier, drawn in black ink with white paper showing through, full body, three quarter view, standing beside a small vintage motorcycle and holding the handlebar.
+
+Subject: a small round rabbit with long upright ears, a soft plump body, simple dot eyes and a tiny mouth, wearing a short riding jacket with a high collar, a long scarf, and a small satchel strapped across the body. The motorbike is small and toy-like, round headlamp, wire spoked wheels, a little parcel rack behind the seat. The rabbit looks calm and friendly, not heroic.
+
+Style: black ink line art on white, clean confident outlines of slightly uneven width, minimal hatching for shadow, no grey wash, no colour at all except black and white, hand drawn illustration like a 1970s children's book endpaper, cute and gentle, absolutely no anime or manga styling.
+
+Composition: the rabbit and the bike together, centred, filling about 70 percent of the frame, generous empty margin on all four sides, nothing cropped.
+
+Constraints: the background must be ONE flat pure magenta #FF00FF everywhere, edge to edge, no ground shadow, no paper texture in the background, ready to be keyed out. No text, no letters, no logo, no watermark, no colour fills, no gradients, no 3D render, no photograph.
+
+Generate the image now with your image generation tool, then copy the final PNG to `site/img/src/rabbit-courier.png`, print the file size and pixel dimensions, and stop. Do not write any code, do not edit any other file.
