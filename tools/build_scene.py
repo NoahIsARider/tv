@@ -141,26 +141,13 @@ def main():
         to_alpha(piece, gain=1.05, pad=3).save(os.path.join(IMG, name + ".png"))
         print(name, Image.open(os.path.join(IMG, name + ".png")).size)
 
-    # ---- the notebook spread, inverted to sit on a dark screen --------
-    sp = Image.open(os.path.join(SRC, "spread.png")).convert("RGB")
-    sp = trim_black(sp, thresh=20, pad=0)
-    # shave the rim so the inverted black surround does not survive as white
-    m = int(sp.width * 0.012)
-    sp = sp.crop((m, m, sp.width - m, sp.height - m))
-    inv = ImageOps.invert(sp)
-    a = np.asarray(inv).astype(np.float32)
-    a = np.clip((a - 8) * 1.06, 0, 255)
-    inv = Image.fromarray(a.astype(np.uint8))
-
-    # the surround of the book inverts to white, which would glow under
-    # mix-blend-mode:screen, so keep only the book itself
-    L = np.asarray(sp.convert("L")).astype(np.float32)
-    inside = book_mask(L, grid=260)
-    alpha = Image.fromarray((inside * 255).astype(np.uint8)).filter(
-        ImageFilter.GaussianBlur(1.6))
-    inv.putalpha(alpha)
-    inv.save(os.path.join(IMG, "spread.png"))
-    print("spread.png", sp.size)
+    # ---- the notebook spread --------------------------------------------
+    # spread2.png is already light ink on a black ground, so it only needs the
+    # alpha cut; the page stretches it to the screen with object-fit:fill
+    sp = Image.open(os.path.join(SRC, "spread2.png")).convert("RGB")
+    sp = trim_black(sp, thresh=16, pad=2)
+    to_alpha(sp, gain=1.05, pad=2).save(os.path.join(IMG, "spread.png"))
+    print("spread.png", Image.open(os.path.join(IMG, "spread.png")).size)
 
 
 def favicon():
