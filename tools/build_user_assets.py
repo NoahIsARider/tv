@@ -43,11 +43,20 @@ def build_tv():
     ys2, xs2 = np.where(glass)
     x0, x1, y0, y1 = int(xs2.min()), int(xs2.max()), int(ys2.min()), int(ys2.max())
 
-    m = Image.fromarray((glass * 255).astype(np.uint8)).filter(
-        ImageFilter.GaussianBlur(1.2))
-    padm = 4
-    m = m.crop((max(x0 - padm, 0), max(y0 - padm, 0),
-                min(x1 + padm, w), min(y1 + padm, h)))
+    m = Image.fromarray((glass * 255).astype(np.uint8))
+    # grow the aperture a little: the glass has a lighter bevel inside it, and
+    # leaving any of it shows up as a dark rim around the static
+    m = m.filter(ImageFilter.MaxFilter(21))
+    m = m.filter(ImageFilter.GaussianBlur(1.2))
+    # the box everything else is measured from is the DILATED aperture, not the
+    # raw flood fill, or the hole ends up wider than the element that fills it
+    ma = np.asarray(m)
+    ys3, xs3 = np.where(ma > 24)
+    dx0, dx1, dy0, dy1 = int(xs3.min()), int(xs3.max()), int(ys3.min()), int(ys3.max())
+    padm = 2
+    cx0, cy0 = max(dx0 - padm, 0), max(dy0 - padm, 0)
+    cx1, cy1 = min(dx1 + padm, w), min(dy1 + padm, h)
+    m = m.crop((cx0, cy0, cx1, cy1))
     # save as RGBA with the shape in ALPHA: a greyscale PNG is an ambiguous
     # mask source and Chrome can end up hiding everything
     rgba = Image.new("RGBA", m.size, (255, 255, 255, 0))
@@ -58,7 +67,7 @@ def build_tv():
     # content BEHIND it, so the bezel's own curve does the clipping and no CSS
     # mask is involved
     hole = Image.new("L", tv.size, 0)
-    hole.paste(m, (max(x0 - padm, 0), max(y0 - padm, 0)))
+    hole.paste(m, (cx0, cy0))
     hole = hole.filter(ImageFilter.GaussianBlur(1.0))
     tv_arr = np.asarray(tv).copy()
     tv_arr[..., 3] = (tv_arr[..., 3].astype(np.float32) * (1.0 - np.asarray(hole).astype(np.float32) / 255.0)).astype(np.uint8)
@@ -66,8 +75,7 @@ def build_tv():
     print("tv-window.png written")
     print("tv-mask.png", m.size)
 
-    gx0, gy0 = max(x0 - 6, 0), max(y0 - 6, 0)
-    gx1, gy1 = min(x1 + 6, w), min(y1 + 6, h)
+    gx0, gy0, gx1, gy1 = cx0, cy0, cx1, cy1
     css = """:root{{
   /* glass box inside img/tv.png, written by tools/build_user_assets.py.
      Grown 6px past the measured edge so the screen content runs under the

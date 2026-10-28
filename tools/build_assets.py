@@ -90,7 +90,7 @@ def glass_overlay():
                                            outline=255, width=90)
     edge = edge.filter(ImageFilter.GaussianBlur(30))
     dark = Image.new("RGBA", (w, h), (10, 4, 12, 0))
-    dark.putalpha(edge.point(lambda v: int(v * 0.55)))
+    dark.putalpha(edge.point(lambda v: int(v * 0.30)))
     lay = Image.alpha_composite(lay, dark)
     lay.putalpha(Image.composite(lay.getchannel("A"), Image.new("L", (w, h), 0), mask))
     lay.save(os.path.join(IMG, "glass.png"))
