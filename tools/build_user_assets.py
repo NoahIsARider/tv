@@ -36,8 +36,13 @@ def build_tv():
     # (black RGB, alpha 0) merges with the black screen and swallows the frame
     flat = Image.new("RGB", tv.size, (255, 255, 255))
     flat.paste(tv, (0, 0), tv)
-    work = flat.copy()
-    ImageDraw.floodfill(work, (int(w * 0.5), int(h * 0.5)), (255, 0, 255), thresh=26)
+    # the screen is essentially black (0-1) while the shadow band under the top
+    # bezel sits around 45-80, so a hard threshold separates them and the band
+    # keeps its shadow instead of being punched out with the glass
+    Lf = np.asarray(flat.convert("L"))
+    binim = Image.fromarray(((Lf < 35) * 255).astype(np.uint8))
+    work = binim.convert("RGB")
+    ImageDraw.floodfill(work, (int(w * 0.5), int(h * 0.5)), (255, 0, 255), thresh=0)
     arr = np.asarray(work)
     glass = (arr[..., 0] == 255) & (arr[..., 1] == 0) & (arr[..., 2] == 255)
     ys2, xs2 = np.where(glass)
@@ -46,7 +51,7 @@ def build_tv():
     m = Image.fromarray((glass * 255).astype(np.uint8))
     # grow the aperture a little: the glass has a lighter bevel inside it, and
     # leaving any of it shows up as a dark rim around the static
-    m = m.filter(ImageFilter.MaxFilter(21))
+    m = m.filter(ImageFilter.MaxFilter(9))
     m = m.filter(ImageFilter.GaussianBlur(1.2))
     # the box everything else is measured from is the DILATED aperture, not the
     # raw flood fill, or the hole ends up wider than the element that fills it

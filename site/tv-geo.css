@@ -2,8 +2,8 @@
   /* glass box inside img/tv.png, written by tools/build_user_assets.py.
      Grown 6px past the measured edge so the screen content runs under the
      bezel instead of leaving a dark rim. */
-  --gl-left:13.279%;
-  --gl-top:11.556%;
-  --gl-w:73.080%;
-  --gl-h:70.709%;
+  --gl-left:12.737%;
+  --gl-top:12.128%;
+  --gl-w:73.984%;
+  --gl-h:70.481%;
 }
