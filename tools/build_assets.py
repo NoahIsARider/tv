@@ -69,7 +69,7 @@ def static_gif():
         rgb = np.stack([n, n * 0.90, n * 0.94], axis=2)
         frames.append(Image.fromarray((rgb * 255).astype(np.uint8), "RGB"))
     frames[0].save(os.path.join(IMG, "static.gif"), save_all=True,
-                   append_images=frames[1:], duration=75, loop=0, optimize=True)
+                   append_images=frames[1:], duration=190, loop=0, optimize=True)
     print("static.gif", os.path.getsize(os.path.join(IMG, "static.gif")))
 
 
