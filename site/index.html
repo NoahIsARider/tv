@@ -93,12 +93,15 @@ body.on #flash{animation:poweron .45s ease-out 1}
 body.on #art{opacity:1;visibility:visible}
 body.open #art{opacity:0;transition:opacity .4s ease,visibility 0s .4s}
 
-#rabbit{
+#rabbitlink{
   position:absolute;left:48.2%;top:47.5%;
   transform:translate(-50%,-50%);
-  height:76%;width:auto;
-  filter:drop-shadow(0 0 12px rgba(255,180,210,.4)) drop-shadow(0 0 34px rgba(255,140,190,.18));
+  height:76%;width:auto;display:block;cursor:pointer;
   animation:breathe 7s ease-in-out infinite;
+}
+#rabbit{
+  height:100%;width:auto;display:block;
+  filter:drop-shadow(0 0 12px rgba(255,180,210,.4)) drop-shadow(0 0 34px rgba(255,140,190,.18));
 }
 @keyframes breathe{
   0%,100%{transform:translate(-50%,-50%) scale(1)}
@@ -126,15 +129,20 @@ body.open #art{opacity:0;transition:opacity .4s ease,visibility 0s .4s}
 #mapbtn:hover{transform:scale(1.07) rotate(-2deg);opacity:1}
 
 /* ---------- the notebook ---------- */
-#book{
+#book,#p3{
   position:absolute;inset:0;z-index:5;
-  /* the book body is what should read as centred; the ribbon hanging under it
-     does not count */
-  transform:translateY(6.2%);
   opacity:0;visibility:hidden;pointer-events:none;
-  transition:opacity .5s ease,visibility 0s .5s;
+  transition:opacity .45s ease,visibility 0s .45s;
 }
-body.open #book{opacity:1;visibility:visible;pointer-events:auto;transition-delay:0s}
+body.p2 #book,
+body.p3 #p3{opacity:1;visibility:visible;pointer-events:auto;transition-delay:0s}
+body.p2 #art,body.p3 #art{opacity:0;transition:opacity .35s ease,visibility 0s .35s}
+
+#p3 .duo{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  height:92%;width:auto;
+  filter:drop-shadow(0 0 14px rgba(255,180,210,.42));
+}
 
 /* the spread is kept in the repo but not shown: the objects stand alone */
 #book .spread{display:none}
@@ -155,12 +163,23 @@ body.open #book{opacity:1;visibility:visible;pointer-events:auto;transition-dela
 .item:hover{transform:rotate(var(--r,0deg)) translateY(-4px) scale(1.07);
   filter:drop-shadow(0 0 16px rgba(255,195,225,.75))}
 
-.b1{left:4%;top:9%;--w:22%;--r:-6deg}
-.b2{left:37%;top:4%;--w:20%;--r:4deg}
-.b3{left:9%;top:53%;--w:23%;--r:5deg}
-.b4{left:69%;top:11%;--w:21%;--r:-3deg}
-.b5{left:38%;top:47%;--w:21%;--r:-4deg}
-.b6{left:70%;top:52%;--w:21%;--r:3deg}
+.b1{left:6%;top:6%;--w:19%;--r:-6deg}
+.b2{left:30%;top:3%;--w:19%;--r:4deg}
+.b3{left:8%;top:50%;--w:19%;--r:5deg}
+.b4{left:54%;top:7%;--w:19%;--r:-3deg}
+.b5{left:58%;top:51%;--w:19%;--r:-4deg}
+.b7{left:33%;top:46%;--w:19%;--r:5deg}
+
+#tothird{
+  position:absolute;right:4%;bottom:5%;z-index:9;
+  background:none;border:0;cursor:pointer;
+  font-family:Salt,cursive;font-size:clamp(11px,1.15vw,15px);
+  color:rgba(255,228,240,.8);letter-spacing:.03em;
+  text-shadow:0 0 14px rgba(255,140,185,.7);
+  opacity:0;pointer-events:none;transition:opacity .45s ease,color .3s;
+}
+body.p2 #tothird{opacity:1;pointer-events:auto}
+#tothird:hover{color:#fff}
 
 #back{
   position:absolute;right:3.5%;top:3%;z-index:9;
@@ -170,8 +189,16 @@ body.open #book{opacity:1;visibility:visible;pointer-events:auto;transition-dela
   text-shadow:0 0 14px rgba(255,140,185,.7);
   opacity:0;pointer-events:none;transition:opacity .45s ease,color .3s;
 }
-body.open #back{opacity:1;pointer-events:auto}
-#back:hover{color:#fff}
+body.p2 #back,body.p3 #back3{opacity:1;pointer-events:auto}
+#back:hover,#back3:hover{color:#fff}
+#back3{
+  position:absolute;right:3.5%;top:3%;z-index:9;
+  background:none;border:0;cursor:pointer;
+  font-family:Salt,cursive;font-size:clamp(11px,1.15vw,15px);
+  color:rgba(255,228,240,.85);letter-spacing:.03em;
+  text-shadow:0 0 14px rgba(255,140,185,.7);
+  opacity:0;pointer-events:none;transition:opacity .45s ease,color .3s;
+}
 
 #hint{
   position:absolute;left:50%;top:calc(100% + 1.3em);transform:translateX(-50%);
@@ -204,9 +231,12 @@ body.on #tvwrap #hint{opacity:0}
       <div id="flash"></div>
 
       <div id="art">
-        <img id="rabbit" src="img/rabbit.png" alt="a rabbit in goggles riding a motorcycle">
+        <a id="rabbitlink" href="https://tangled.org/noahisarider.bsky.social"
+           target="_blank" rel="noopener" aria-label="tangled">
+          <img id="rabbit" src="img/rabbit.png" alt="a rabbit in goggles riding a motorcycle">
+        </a>
         <span id="sign">noahisarider</span>
-        <button id="mapbtn" type="button" aria-label="open the map">
+        <button id="mapbtn" type="button" aria-label="next page">
           <img src="img/obj-map.png" alt="map">
         </button>
       </div>
@@ -223,9 +253,15 @@ body.on #tvwrap #hint{opacity:0}
           <img src="img/obj-walkman.png" alt=""><span>record club</span></a>
         <a class="item b5" href="https://codeberg.org/NoahIsARider" target="_blank" rel="noopener">
           <img src="img/obj-laptop.png" alt=""><span>codeberg</span></a>
-        <a class="item b6" href="https://tangled.org/noahisarider.bsky.social" target="_blank" rel="noopener">
-          <img src="img/rabbit-dog.png" alt=""><span>tangled</span></a>
-        <button id="back" type="button">close</button>
+        <a class="item b7" href="https://huggingface.co/NoahIsARider" target="_blank" rel="noopener">
+          <img src="img/obj-map.png" alt=""><span>hugging face</span></a>
+        <button id="tothird" type="button">next</button>
+        <button id="back" type="button">return</button>
+      </div>
+
+      <div id="p3">
+        <img class="duo" src="img/rabbit-dog.png" alt="a rabbit and a dog on a motorcycle">
+        <button id="back3" type="button">return</button>
       </div>
 
       <div id="sheen"></div>
@@ -245,35 +281,39 @@ body{overflow:auto}#art{opacity:1;visibility:visible;position:static;height:auto
   var body=document.body,
       wrap=document.getElementById('tvwrap'),
       map=document.getElementById('mapbtn'),
-      back=document.getElementById('back');
+      back=document.getElementById('back'),
+      back3=document.getElementById('back3'),
+      tothird=document.getElementById('tothird');
 
-  function on(){ body.classList.add('on'); }
-  function off(){ body.classList.remove('open'); body.classList.remove('on'); }
-  function openBook(){ body.classList.add('open'); }
-  function closeBook(){ body.classList.remove('open'); }
+  function page(n){
+    body.classList.toggle('p2', n === 2);
+    body.classList.toggle('p3', n === 3);
+  }
+  function on(){ body.classList.add('on'); page(1); }
+  function off(){ body.classList.remove('on'); page(1); }
 
   wrap.addEventListener('click', function(e){
-    if (e.target.closest('#mapbtn')) { e.preventDefault(); e.stopPropagation(); openBook(); return; }
-    if (e.target.closest('#book')) { return; }
-    if (!body.classList.contains('on')) { e.preventDefault(); on(); return; }
-    if (body.classList.contains('open')) closeBook();
+    if (!body.classList.contains('on')) { e.preventDefault(); on(); }
   });
   wrap.addEventListener('keydown', function(e){
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); on(); }
   });
-  back.addEventListener('click', function(e){
-    e.stopPropagation();
-    if (body.classList.contains('open')) closeBook(); else off();
-  });
+
+  map.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); page(2); });
+  back.addEventListener('click', function(e){ e.stopPropagation(); page(1); });
+  back3.addEventListener('click', function(e){ e.stopPropagation(); page(2); });
+  tothird.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); page(3); });
+
   document.addEventListener('keydown', function(e){
     if (e.key !== 'Escape') return;
-    if (body.classList.contains('open')) closeBook(); else off();
+    if (body.classList.contains('p3')) page(2);
+    else if (body.classList.contains('p2')) page(1);
+    else off();
   });
   // a click anywhere outside the set turns it off in one step, however deep
-  // the visitor is inside the notebook
   document.addEventListener('click', function(e){
     if (!body.classList.contains('on')) return;
-    if (e.target.closest('#tvwrap') || e.target.closest('#back')) return;
+    if (e.target.closest('#tvwrap') || e.target.closest('#back3')) return;
     off();
   });
 })();
