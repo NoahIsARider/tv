@@ -17,6 +17,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageOps
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, "src", "user")
 IMG = os.path.join(ROOT, "site", "img")
+SITE = os.path.join(ROOT, "site")
 
 
 def trim_black(im, thresh=24, pad=6):
@@ -151,15 +152,36 @@ def main():
 
 
 def favicon():
-    """The map file icon, on a dark round tile, for the browser tab."""
-    src = Image.open(os.path.join(IMG, "obj-map.png")).convert("RGBA")
+    """The television showing static, cut out, for the browser tab."""
+    tv = Image.open(os.path.join(IMG, "tv.png")).convert("RGBA")
+    mask = Image.open(os.path.join(IMG, "tv-mask.png")).convert("RGBA")
+    gif = Image.open(os.path.join(IMG, "static.gif"))
+    gif.seek(0)
+    frame = gif.convert("RGB")
+
+    # glass box from the generated css
+    css = open(os.path.join(SITE, "tv-geo.css"), encoding="utf-8").read()
+    def pct(name):
+        return float(css.split(name + ":")[1].split("%")[0])
+    w, h = tv.size
+    box = (int(pct("--gl-left") / 100 * w), int(pct("--gl-top") / 100 * h),
+           int((pct("--gl-left") + pct("--gl-w")) / 100 * w),
+           int((pct("--gl-top") + pct("--gl-h")) / 100 * h))
+    gw, gh = box[2] - box[0], box[3] - box[1]
+
+    # at 32px the fine grain averages to grey, so push the contrast first
+    frame = ImageOps.autocontrast(frame, cutoff=1).point(
+        lambda v: min(255, int(v * 1.55) + 20))
+    shot = frame.resize((gw, gh), Image.LANCZOS).convert("RGBA")
+    shot.putalpha(mask.resize((gw, gh), Image.LANCZOS).getchannel("A"))
+    tv.alpha_composite(shot, (box[0], box[1]))
+
     size = 256
     tile = Image.new("RGBA", (size, size), (0, 0, 0, 0))
-    d = ImageDraw.Draw(tile)
-    d.rounded_rectangle([0, 0, size - 1, size - 1], radius=58,
-                        fill=(13, 8, 16, 255))
-    inner = src.copy()
-    inner.thumbnail((int(size * 0.80), int(size * 0.80)), Image.LANCZOS)
+    inner = tv.copy()
+    bbox = inner.getchannel("A").getbbox()
+    inner = inner.crop(bbox)
+    inner.thumbnail((int(size * 0.94), int(size * 0.94)), Image.LANCZOS)
     tile.alpha_composite(inner, ((size - inner.width) // 2,
                                  (size - inner.height) // 2))
     tile.save(os.path.join(IMG, "favicon.png"))
