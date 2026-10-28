@@ -118,15 +118,15 @@ body.open #art{opacity:0;transition:opacity .4s ease,visibility 0s .4s}
   pointer-events:none;
 }
 
-#mapbtn{
-  position:absolute;right:3%;bottom:3.5%;z-index:4;
-  width:19%;padding:0;border:0;background:none;cursor:pointer;
-  opacity:1;
-  filter:brightness(1.18) drop-shadow(0 0 10px rgba(255,185,215,.5));
-  transition:transform .35s var(--ease),opacity .35s ease;
+#next1{
+  position:absolute;right:4%;bottom:5%;z-index:4;
+  background:none;border:0;cursor:pointer;
+  font-family:Salt,cursive;font-size:clamp(11px,1.15vw,15px);
+  color:rgba(255,228,240,.8);letter-spacing:.03em;
+  text-shadow:0 0 14px rgba(255,140,185,.7);
+  transition:color .3s ease;
 }
-#mapbtn img{display:block;width:100%;height:auto}
-#mapbtn:hover{transform:scale(1.07) rotate(-2deg);opacity:1}
+#next1:hover{color:#fff}
 
 /* ---------- the notebook ---------- */
 #book,#p3{
@@ -236,9 +236,7 @@ body.on #tvwrap #hint{opacity:0}
           <img id="rabbit" src="img/rabbit.png" alt="a rabbit in goggles riding a motorcycle">
         </a>
         <span id="sign">noahisarider</span>
-        <button id="mapbtn" type="button" aria-label="next page">
-          <img src="img/obj-map.png" alt="map">
-        </button>
+        <button id="next1" type="button">next</button>
       </div>
 
       <div id="book">
@@ -280,7 +278,7 @@ body{overflow:auto}#art{opacity:1;visibility:visible;position:static;height:auto
 (function(){
   var body=document.body,
       wrap=document.getElementById('tvwrap'),
-      map=document.getElementById('mapbtn'),
+      next1=document.getElementById('next1'),
       back=document.getElementById('back'),
       back3=document.getElementById('back3'),
       tothird=document.getElementById('tothird');
@@ -299,7 +297,7 @@ body{overflow:auto}#art{opacity:1;visibility:visible;position:static;height:auto
     if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); on(); }
   });
 
-  map.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); page(2); });
+  next1.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); page(2); });
   back.addEventListener('click', function(e){ e.stopPropagation(); page(1); });
   back3.addEventListener('click', function(e){ e.stopPropagation(); page(2); });
   tothird.addEventListener('click', function(e){ e.preventDefault(); e.stopPropagation(); page(3); });
