@@ -136,16 +136,12 @@ body.open #art{opacity:0;transition:opacity .4s ease,visibility 0s .4s}
 }
 body.open #book{opacity:1;visibility:visible;pointer-events:auto;transition-delay:0s}
 
-#book .spread{
-  position:absolute;left:50%;top:50%;
-  transform:translate(-50%,-50%);
-  /* stretched to the screen, not letterboxed inside it */
-  width:101%;height:101%;object-fit:fill;
-}
+/* the spread is kept in the repo but not shown: the objects stand alone */
+#book .spread{display:none}
 
 .item{
   position:absolute;display:block;text-decoration:none;
-  text-align:center;color:var(--ink);width:var(--w,15%);
+  text-align:center;color:var(--ink);width:var(--w,21%);
   transform:rotate(var(--r,0deg));transform-origin:50% 50%;
   transition:transform .35s var(--ease),filter .3s ease;
   filter:drop-shadow(0 0 8px rgba(255,180,212,.35));
@@ -159,15 +155,15 @@ body.open #book{opacity:1;visibility:visible;pointer-events:auto;transition-dela
 .item:hover{transform:rotate(var(--r,0deg)) translateY(-4px) scale(1.07);
   filter:drop-shadow(0 0 16px rgba(255,195,225,.75))}
 
-.b1{left:10%;top:11%;--w:16%;--r:-7deg}
-.b2{left:30%;top:23%;--w:14%;--r:-4deg}
-.b3{left:12%;top:44%;--w:16%;--r:5deg}
-.b4{left:58%;top:12%;--w:16%;--r:6deg}
-.b5{left:57%;top:50%;--w:14.5%;--r:3deg}
-.b6{left:72.5%;top:31%;--w:17%;--r:-5deg}
+.b1{left:4%;top:9%;--w:22%;--r:-6deg}
+.b2{left:37%;top:4%;--w:20%;--r:4deg}
+.b3{left:9%;top:53%;--w:23%;--r:5deg}
+.b4{left:69%;top:11%;--w:21%;--r:-3deg}
+.b5{left:38%;top:47%;--w:21%;--r:-4deg}
+.b6{left:70%;top:52%;--w:21%;--r:3deg}
 
 #back{
-  position:absolute;right:8.5%;top:8%;z-index:9;
+  position:absolute;right:3.5%;top:3%;z-index:9;
   background:none;border:0;cursor:pointer;
   font-family:Salt,cursive;font-size:clamp(11px,1.15vw,15px);
   color:rgba(255,228,240,.85);letter-spacing:.03em;
