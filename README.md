@@ -5,7 +5,7 @@ Tangled Sites.
 
 ## What it is
 
-A silver CRT television floating over a night beach. The screen is running
+A silver CRT tv floating over a night beach. The screen is running
 static until you click it; then the set grows to fill the window and the
 screen shows a rabbit courier on a motorbike with nine engraved objects
 floating around it, plus a single link out to Tangled.
@@ -21,7 +21,7 @@ site/                 the deploy directory (Tangled Sites -> deploy dir "site")
   tv-geo.css          the glass rectangle inside img/tv.png, generated
   img/
     bg.jpg            graded night beach background
-    tv.png            the keyed television
+    tv.png            the keyed tv
     tv-window.png     the same set with the glass punched out
     tv-mask.png       the glass shape (alpha), used to build tv-window.png
     static.gif        12 frames of CRT static
